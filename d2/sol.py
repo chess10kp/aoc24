@@ -10,11 +10,9 @@ for report in (output):
     current, prev = None, None
     failed = False
     prev, current = 0, 0
+    is_increasing = levels[0] > levels[1]
     for i in range(1, len(levels)):
         current = i
-
-        if is_increasing is None:
-            is_increasing = levels[prev] > levels[current]
 
         if ( levels[prev] > levels[current]) != is_increasing or levels[prev] == levels[current] :
             failed = True
