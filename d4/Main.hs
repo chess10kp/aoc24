@@ -26,3 +26,19 @@ countXmasesHorizontally xs = sum $ map (countXmasesOnLine 0) xs
 countXmasesVertically :: [String] -> Int
 countXmasesVertically xs = countXmasesHorizontally (transpose xs)
 
+countXmasesDiagonally :: [String] -> Int
+countXmasesDiagonally xs = countXmasesHorizontally $ diagonals xs
+
+countXmasesReverseDiagonally :: [String] -> Int
+countXmasesReverseDiagonally xs = countXmasesHorizontally $ reverseDiagonals xs
+                               
+
+diagonals :: [String] -> [String]
+diagonals grid = [ [grid !! (i + k) !! k | k <- [0 .. min (m - i - 1) (n - 1)]] | i <- [0 .. m - 1]] ++
+                 [ [grid !! k !! (j + k) | k <- [0 .. min (m - 1) (n - j - 1)]] | j <- [1 .. n - 1]]
+  where
+    m = length grid
+    n = if null grid then 0 else length (head grid)
+
+reverseDiagonals :: [String] -> [String]
+reverseDiagonals xs = map reverse $ diagonals xs 
